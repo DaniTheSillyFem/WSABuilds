@@ -126,8 +126,18 @@ jobs:
         run: echo "DATE=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
         shell: bash
   
-      - name: Upload build output 💸
-        uses: actions/upload-artifact@v4
-        with:
-          name: wsa-build-output
-          path: MagiskOnWSA/output
+      - name: Pack build output
+        run:
+          tar -czf wsa-build.tar.gz -C MagiskOnWSA output
+
+      - name: Download gdriveupload
+        run:
+          curl -LO https://github.com/usmanmughalji/gdriveupload/releases/download/v3.0.11/gdrive-linux-x64
+          mv gdrive-linux-x64 gdrive
+          chmod +x gdrive
+
+      - name: Upload (un)finished WSA build
+        run:
+          ./gdrive list
+          ./gdrive upload "wsa-build.tar.gz"
+      
