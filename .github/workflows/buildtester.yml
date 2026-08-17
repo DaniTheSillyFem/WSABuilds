@@ -131,13 +131,13 @@ jobs:
           tar -czf wsa-build.tar.gz -C MagiskOnWSA output
 
       - name: Download gdriveupload
-        run:
+        run: |
           curl -LO https://github.com/usmanmughalji/gdriveupload/releases/download/v3.0.11/gdrive-linux-x64
           mv gdrive-linux-x64 gdrive
           chmod +x gdrive
 
       - name: Upload (un)finished WSA build
-        run:
+        run: |
           ./gdrive list
           ./gdrive upload "wsa-build.tar.gz"
       
