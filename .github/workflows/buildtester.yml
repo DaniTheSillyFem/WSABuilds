@@ -127,17 +127,11 @@ jobs:
         shell: bash
   
       - name: Pack build output
-        run:
+        run: |
           tar -czf wsa-build.tar.gz -C MagiskOnWSA output
 
-      - name: Download gdriveupload
+      - name: Upload to Gofile
         run: |
-          curl -LO https://github.com/usmanmughalji/gdriveupload/releases/download/v3.0.11/gdrive-linux-x64
-          mv gdrive-linux-x64 gdrive
-          chmod +x gdrive
-
-      - name: Upload (un)finished WSA build
-        run: |
-          ./gdrive list
-          ./gdrive upload "wsa-build.tar.gz"
-      
+          curl -LO https://raw.githubusercontent.com/Sushrut1101/GoFile-Upload/refs/heads/master/upload.sh
+          chmod +x upload.sh
+          ./upload.sh wsa-build.tar.gz
