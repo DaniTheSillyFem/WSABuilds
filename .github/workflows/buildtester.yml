@@ -1,5 +1,8 @@
 name: Custom Build (for testing purpose)
 run-name: WSA ${{ inputs.release_type }} ${{ inputs.arch }} with ${{ inputs.root_sol }} and ${{ inputs.gapps_brand }} as ${{ inputs.custom_model }}
+permissions:
+  contents: write
+
 on:
   workflow_dispatch:
     inputs:
