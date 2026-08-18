@@ -70,10 +70,10 @@ jobs:
                 echo "Inputs are valid"        
             fi
 
-      - name: Checkout ♻️
+      - name: Checkout
         uses: actions/checkout@v7
 
-      - name: Setup Python 👷
+      - name: Setup Python
         uses: actions/setup-python@v6
         with:
           check-latest: true
@@ -81,7 +81,7 @@ jobs:
           cache: 'pip'
           cache-dependency-path: MagiskOnWSA/scripts/
 
-      - name: Setup Python3 Virtual Enviroment 🐍
+      - name: Setup Python3 Virtual Enviroment
         working-directory: MagiskOnWSA/scripts
         run: |
           sudo apt-get update
@@ -95,13 +95,13 @@ jobs:
           }
           deactivate
 
-      - name: Install Ubuntu Dependencies 🧑‍🏭
+      - name: Install Ubuntu Dependencies
         uses: awalsh128/cache-apt-pkgs-action@v1
         with:
           packages: e2fsprogs attr unzip qemu-utils python3-venv
           version: 1.0
 
-      - name: Build WSA 🏗️
+      - name: Build WSA
         id: wsa
         working-directory: MagiskOnWSA
         run: |
@@ -119,19 +119,15 @@ jobs:
           echo -e "user_code=$(cat $GITHUB_EVENT_PATH | jq -r '.inputs.user_code')" > download/.ms_account
           ./scripts/build.sh --arch ${{ inputs.arch }} --release-type ${opts[RELEASE_TYPE,${{ inputs.release_type }}]} --magisk-ver $MAGISK_VER ${opts[GAPPS_BRAND,${{ inputs.gapps_brand }}]} --root-sol $ROOT_SOL --compress-format ${opts[COMPRESSION,${{ inputs.compression }}]} ${opts[REMOVE_AMAZON,${{ inputs.remove_amazon }}]}
         shell: bash
-
-
-      - name: Set date
-        id: date
-        run: echo "DATE=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV
-        shell: bash
   
       - name: Pack build output
         run: |
-          tar -czf ${{ steps.wsa.outputs.artifact }}.tar.gz -C MagiskOnWSA/output
+          cd MagiskOnWSA
+          tar -czf ../${{ steps.wsa.outputs.artifact }}.tar.gz -C output WSA_2407.40000.4.0_x64
+          cd ..
 
       - name: Upload to Gofile
         run: |
           curl -LO https://raw.githubusercontent.com/Sushrut1101/GoFile-Upload/refs/heads/master/upload.sh
           chmod +x upload.sh
-          ./upload.sh wsa-build.tar.gz
+          ./upload.sh ${{ steps.wsa.outputs.artifact }}.tar.gz
