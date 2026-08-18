@@ -131,3 +131,10 @@ jobs:
           curl -LO https://raw.githubusercontent.com/Sushrut1101/GoFile-Upload/refs/heads/master/upload.sh
           chmod +x upload.sh
           ./upload.sh ${{ steps.wsa.outputs.artifact }}.tar.gz
+
+      - name: Upload to Releases
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: v1.0.0
+          name: wsabuilds personal (only kernelsu)
+          files: ${{ steps.wsa.outputs.artifact }}.tar.gz
