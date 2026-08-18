@@ -430,6 +430,9 @@ if [ -z ${OFFLINE+x} ]; then
     if [ "$ROOT_SOL" = "kernelsu" ]; then
         update_ksu_zip_name
         python3 generateKernelSULink.py "$ARCH" "$DOWNLOAD_DIR" "$DOWNLOAD_CONF_NAME" "$KERNEL_VER" "$KERNELSU_ZIP_NAME" || abort
+        echo "========== WSA_WORK_ENV =========="
+        cat "$WSA_WORK_ENV"
+        echo "=================================="
         # shellcheck disable=SC1090
         source "$WSA_WORK_ENV" || abort
         # shellcheck disable=SC2153
