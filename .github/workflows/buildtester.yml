@@ -128,7 +128,7 @@ jobs:
   
       - name: Pack build output
         run: |
-          tar -czf wsa-build.tar.gz -C MagiskOnWSA output
+          tar -czf ${{ steps.wsa.outputs.artifact }}.tar.gz -C MagiskOnWSA/output
 
       - name: Upload to Gofile
         run: |
