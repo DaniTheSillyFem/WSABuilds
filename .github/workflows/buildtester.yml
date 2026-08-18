@@ -31,19 +31,19 @@ on:
         description: Root solution
         required: true
         options: ["Non-root","KernelSU","Magisk Stable","Magisk Beta","Magisk Canary","Magisk Debug","Magisk Alpha (vvb2060)","Magisk Delta (HuskyDG)"]
-        default: "Magisk Stable"
+        default: "KernelSU"
       gapps_brand:
         type: choice
         description: Google Apps brand
         required: true
         options: ["MindTheGapps v13.0","No GApps"]
-        default: "MindTheGapps v13.0"
+        default: "No GApps"
       custom_model:
         type: choice
         description: Custom model
         required: true
         options: ["WSA Default", "Pixel 4a", "Pixel 4a (5G)", "Pixel 5", "Pixel 5a", "Pixel 6", "Pixel 6 Pro", "Pixel 6a", "Pixel 7", "Pixel 7 Pro", "Pixel 7a", "Pixel Tablet", "Pixel Fold"]
-        default: "Pixel 5"
+        default: "WSA Default"
       compression:
         type: choice
         description: Compression format.
